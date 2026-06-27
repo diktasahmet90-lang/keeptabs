@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "KeepTabs",
   "version": "0.1.0",
-  "description": "Sekmelerini klasörlere kaydet, kapat, sonra geri aç. Hesap yok, sunucu yok — verin sizde kalır.",
+  "description": "Save tabs into named folders, close them, and reopen anytime. No account, no servers — your data stays on your device.",
   "permissions": ["tabs", "storage"],
   "icons": {
     "16": "icon16.png",
