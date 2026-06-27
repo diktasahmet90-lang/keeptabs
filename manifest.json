@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "KeepTabs",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Save tabs into named folders, close them, and reopen anytime. No account, no servers — your data stays on your device.",
   "permissions": ["tabs", "storage"],
   "icons": {

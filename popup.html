@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <link rel="stylesheet" href="popup.css">
@@ -7,24 +7,24 @@
 <body>
   <header>
     <div class="logo">Keep<span>Tabs</span></div>
-    <button id="backupBtn" class="ghost" title="Tüm klasörleri JSON olarak indir">⬇ Yedek</button>
+    <button id="backupBtn" class="ghost" title="Download all folders as JSON">⬇ Backup</button>
   </header>
 
   <section class="save-box">
-    <input id="folderName" type="text" placeholder="Klasör adı (örn: kod)" autocomplete="off" maxlength="40">
+    <input id="folderName" type="text" placeholder="Folder name (e.g. work)" autocomplete="off" maxlength="40">
     <button id="saveBtn" class="primary">
-      Bu penceredeki sekmeleri kaydet (<span id="tabCount">0</span>)
+      Save tabs in this window (<span id="tabCount">0</span>)
     </button>
   </section>
 
   <section id="folders" class="folders"></section>
 
   <div id="empty" class="empty">
-    Henüz kayıtlı klasör yok.<br>
-    Yukarıdan ilk klasörünü oluştur.
+    No saved folders yet.<br>
+    Create your first folder above.
   </div>
 
-  <footer>Verin sadece bu cihazda. Hesap yok, sunucu yok.</footer>
+  <footer>Your data stays on this device. No account, no servers.</footer>
 
   <script src="popup.js"></script>
 </body>

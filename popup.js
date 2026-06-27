@@ -1,4 +1,4 @@
-// KeepTabs — tüm veri chrome.storage.local'da, cihazda kalır. Sunucu/hesap yok.
+// KeepTabs — all data lives in chrome.storage.local, on the device. No server, no account.
 
 document.addEventListener("DOMContentLoaded", init);
 
@@ -12,7 +12,7 @@ async function init() {
   });
 }
 
-// --- Yardımcılar: sekmeler ve depolama ---
+// --- Helpers: tabs & storage ---
 async function getCurrentTabs() {
   return await chrome.tabs.query({ currentWindow: true });
 }
@@ -29,13 +29,13 @@ async function refreshTabCount() {
   document.getElementById("tabCount").textContent = tabs.length;
 }
 
-// --- Kaydet ---
+// --- Save ---
 async function onSave() {
   const input = document.getElementById("folderName");
   let name = input.value.trim();
   const tabs = await getCurrentTabs();
   if (tabs.length === 0) return;
-  if (!name) name = "Klasör " + new Date().toLocaleDateString("tr-TR");
+  if (!name) name = "Folder " + new Date().toLocaleDateString("en-US");
 
   const folder = {
     id: Date.now().toString(),
@@ -55,7 +55,7 @@ async function onSave() {
   render();
 }
 
-// --- Aç ---
+// --- Open ---
 async function openFolder(id) {
   const folders = await getFolders();
   const f = folders.find((x) => x.id === id);
@@ -68,28 +68,28 @@ function openSingle(url) {
   chrome.tabs.create({ url, active: true });
 }
 
-// --- Sil (geri alınamaz → onay iste, "kaybetmez" sözümüz gereği) ---
+// --- Delete (irreversible -> confirm first, per our "never lose your tabs" promise) ---
 async function deleteFolder(id) {
-  if (!confirm("Bu klasörü silmek istediğine emin misin? Bu işlem geri alınamaz.")) return;
+  if (!confirm("Are you sure you want to delete this folder? This can't be undone.")) return;
   let folders = await getFolders();
   folders = folders.filter((x) => x.id !== id);
   await setFolders(folders);
   render();
 }
 
-// --- Yedek (tek tıkla JSON indir) ---
+// --- Backup (one-click JSON download) ---
 async function onBackup() {
   const folders = await getFolders();
   const blob = new Blob([JSON.stringify(folders, null, 2)], { type: "application/json" });
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
-  a.download = "keeptabs-yedek-" + new Date().toISOString().slice(0, 10) + ".json";
+  a.download = "keeptabs-backup-" + new Date().toISOString().slice(0, 10) + ".json";
   a.click();
   URL.revokeObjectURL(url);
 }
 
-// --- Ekrana çiz ---
+// --- Render ---
 async function render() {
   const folders = await getFolders();
   const wrap = document.getElementById("folders");
@@ -106,7 +106,7 @@ async function render() {
     const card = document.createElement("div");
     card.className = "folder";
 
-    // Başlık satırı
+    // Header row
     const head = document.createElement("div");
     head.className = "folder-head";
 
@@ -124,18 +124,18 @@ async function render() {
     actions.className = "folder-actions";
     const openBtn = document.createElement("button");
     openBtn.className = "mini";
-    openBtn.textContent = "Hepsini aç";
+    openBtn.textContent = "Open all";
     openBtn.addEventListener("click", () => openFolder(f.id));
     const delBtn = document.createElement("button");
     delBtn.className = "mini danger";
     delBtn.textContent = "🗑";
-    delBtn.title = "Sil";
+    delBtn.title = "Delete";
     delBtn.addEventListener("click", () => deleteFolder(f.id));
     actions.append(openBtn, delBtn);
 
     head.append(title, actions);
 
-    // Sekme listesi (varsayılan kapalı)
+    // Tab list (collapsed by default)
     const list = document.createElement("div");
     list.className = "tab-list";
     list.style.display = "none";
@@ -154,7 +154,7 @@ async function render() {
       list.append(link);
     }
 
-    // Başlığa tıkla → aç/kapat
+    // Click title -> expand/collapse
     title.addEventListener("click", () => {
       const isOpen = list.style.display !== "none";
       list.style.display = isOpen ? "none" : "block";
