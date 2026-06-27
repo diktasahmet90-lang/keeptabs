@@ -159,8 +159,8 @@ footer {
   border-top: 1px solid var(--line);
 }
 
-/* Koyu mod: sistem/tarayıcı dark moddaysa popup da koyu olur.
-   Açık ve özel renkli temalar "açık" sayılır → beyaz popup. */
+/* Dark mode: if the system/browser is in dark mode, the popup goes dark too.
+   Light and custom colored themes count as "light" -> white popup. */
 @media (prefers-color-scheme: dark) {
   :root {
     --bg: #17181f;
