@@ -1,0 +1,181 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #ffffff;
+  --ink: #1a1a2e;
+  --muted: #6b7280;
+  --line: #e7e8ee;
+  --brand: #2563eb;
+  --brand-dark: #1d4ed8;
+  --soft: #f4f6fb;
+  --danger: #dc2626;
+}
+
+body {
+  width: 360px;
+  font-family: -apple-system, "SF Pro Text", "Segoe UI", system-ui, sans-serif;
+  color: var(--ink);
+  background: var(--bg);
+  font-size: 13px;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--line);
+}
+.logo { font-size: 16px; font-weight: 700; letter-spacing: -0.2px; }
+.logo span { color: var(--brand); }
+
+.ghost {
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--muted);
+  padding: 5px 9px;
+  border-radius: 7px;
+  font-size: 12px;
+  cursor: pointer;
+}
+.ghost:hover { background: var(--soft); color: var(--ink); }
+
+.save-box {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px;
+  border-bottom: 1px solid var(--line);
+}
+#folderName {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  padding: 10px 12px;
+  font-size: 13px;
+  outline: none;
+  background: #fff;
+  color: var(--ink);
+}
+#folderName:focus { border-color: var(--brand); }
+
+.primary {
+  width: 100%;
+  border: none;
+  background: var(--brand);
+  color: #fff;
+  padding: 11px 12px;
+  border-radius: 9px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.primary:hover { background: var(--brand-dark); }
+
+.folders { padding: 8px 10px; max-height: 380px; overflow-y: auto; }
+
+.folder {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  margin-bottom: 8px;
+  overflow: hidden;
+}
+.folder-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 4px 6px 4px 4px;
+}
+.folder-title {
+  flex: 1;
+  text-align: left;
+  border: none;
+  background: transparent;
+  padding: 7px 8px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.folder-title:hover { background: var(--soft); }
+.folder-title .chev { color: var(--muted); font-size: 11px; }
+.folder-title .count { color: var(--muted); font-weight: 500; }
+
+.folder-actions { display: flex; gap: 4px; flex-shrink: 0; }
+.mini {
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--ink);
+  padding: 5px 9px;
+  border-radius: 7px;
+  font-size: 12px;
+  cursor: pointer;
+}
+.mini:hover { background: var(--soft); }
+.mini.danger { color: var(--danger); border-color: #f3d3d3; }
+.mini.danger:hover { background: #fdecec; }
+
+.tab-list { border-top: 1px solid var(--line); padding: 4px; }
+.tab-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  text-align: left;
+  border: none;
+  background: transparent;
+  padding: 7px 8px;
+  border-radius: 7px;
+  font-size: 12.5px;
+  color: var(--ink);
+  cursor: pointer;
+}
+.tab-link:hover { background: var(--soft); }
+.tab-link span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.fav { width: 15px; height: 15px; flex-shrink: 0; border-radius: 3px; }
+
+.empty {
+  display: none;
+  text-align: center;
+  color: var(--muted);
+  padding: 28px 16px;
+  line-height: 1.6;
+}
+
+footer {
+  text-align: center;
+  color: var(--muted);
+  font-size: 11px;
+  padding: 10px 14px 14px;
+  border-top: 1px solid var(--line);
+}
+
+/* Koyu mod: sistem/tarayıcı dark moddaysa popup da koyu olur.
+   Açık ve özel renkli temalar "açık" sayılır → beyaz popup. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #17181f;
+    --ink: #e8e9f0;
+    --muted: #9aa0ab;
+    --line: #2a2c36;
+    --brand: #3b82f6;
+    --brand-dark: #2563eb;
+    --soft: #21232c;
+    --danger: #f87171;
+  }
+  .ghost, .mini { background: #1f2027; color: var(--ink); }
+  .ghost { color: var(--muted); }
+  #folderName { background: #1f2027; }
+  .mini.danger { color: var(--danger); border-color: #4a2a2a; }
+  .mini.danger:hover { background: #2a1d1d; }
+}
+
